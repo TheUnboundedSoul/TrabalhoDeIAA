@@ -13,12 +13,17 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 import joblib
 import seaborn as sns
+import time
 
 #-----------------------------------------------------------------------------------------------------------------------
 # 1 - prepare data
-
+iTimeWhenLoadingStarted = time.time()
 # Carregar o CSV
-df = pd.read_csv('medical_insurance.csv')
+df = pd.read_csv('Trabalho\medical_insurance.csv')
+iTimeWhenLoadingCompleted = time.time()
+iSecondsTheLoadingTook = iTimeWhenLoadingCompleted-iTimeWhenLoadingStarted
+strFormat = "Loading started at {}, ended at {}, took {} second(s)".format(iTimeWhenLoadingStarted, iTimeWhenLoadingCompleted, iSecondsTheLoadingTook)
+print (strFormat)
 
 # Convertendo variáveis categóricas em variáveis dummy (também conhecidas como variáveis indicadoras)
 df = pd.get_dummies(df, columns=['sex', 'smoker', 'region'])
