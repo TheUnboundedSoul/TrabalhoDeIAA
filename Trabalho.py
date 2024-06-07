@@ -160,6 +160,7 @@ plt.figure(figsize=(20,10))
 tree.plot_tree(dt_regressor, feature_names=X.columns, filled=True, fontsize=13, proportion=True)
 plt.title("Decision Tree Regressor")
 plt.show()
+
 # The decision tree provides a hierarchical breakdown of the factors affecting insurance charges. 
 # It confirms the intuitive understanding that smoking, BMI, age, and having children are significant determinants of medical costs. 
 # This visualization can help in understanding how different factors interact to influence insurance charges, 
