@@ -14,12 +14,14 @@ from sklearn.preprocessing import StandardScaler
 import joblib
 import seaborn as sns
 import time
+from sklearn.tree import DecisionTreeRegressor
+from sklearn import tree
 
 #-----------------------------------------------------------------------------------------------------------------------
 # 1 - prepare data
 iTimeWhenLoadingStarted = time.time()
 # Carregar o CSV
-df = pd.read_csv('Trabalho\medical_insurance.csv')
+df = pd.read_csv('medical_insurance.csv')
 iTimeWhenLoadingCompleted = time.time()
 iSecondsTheLoadingTook = iTimeWhenLoadingCompleted-iTimeWhenLoadingStarted
 strFormat = "Loading started at {}, ended at {}, took {} second(s)".format(iTimeWhenLoadingStarted, iTimeWhenLoadingCompleted, iSecondsTheLoadingTook)
@@ -142,5 +144,26 @@ plt.show()
 # 7 - save the model
 
 # Salvar o modelo treinado para uso futuro
-joblib.dump(model, 'Trabalho\linear_regression_model.pkl')
-joblib.dump(scaler, 'Trabalho\scaler.pkl')
+joblib.dump(model, 'linear_regression_model.pkl')
+joblib.dump(scaler, 'scaler.pkl')
+
+
+#-----------------------------------------------------------------------------------------------------------------------
+# 8 - Decision Tree Regressor
+
+# Train Decision Tree Regressor
+dt_regressor = DecisionTreeRegressor(max_depth=3) # will take a lot of time if no max_depth is set, because this is a large dataset to plot!
+dt_regressor.fit(X, y)
+
+# Plotting the tree
+plt.figure(figsize=(20,10))
+tree.plot_tree(dt_regressor, feature_names=X.columns, filled=True, fontsize=13, proportion=True)
+plt.title("Decision Tree Regressor")
+plt.show()
+# The decision tree provides a hierarchical breakdown of the factors affecting insurance charges. 
+# It confirms the intuitive understanding that smoking, BMI, age, and having children are significant determinants of medical costs. 
+# This visualization can help in understanding how different factors interact to influence insurance charges, 
+# and it can also be useful for insurance companies to develop more accurate pricing models.
+
+# Overall, the tree suggests that health behaviors (like smoking), physical health (BMI), and demographic factors (age, children) are critical in predicting medical insurance costs. 
+# This understanding can guide both insurers in setting premiums and individuals in understanding potential factors affecting their insurance costs.
